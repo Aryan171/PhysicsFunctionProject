@@ -14,6 +14,8 @@ int main(int argc, char* argv[])
 	SDL_Rect sliderN;
 	SDL_Rect sliderAInner;
 	SDL_Rect sliderNInner;
+	SDL_Rect sliderAHeader;
+	SDL_Rect sliderNHeader;
 
 	int screenMid;
 
@@ -42,6 +44,9 @@ int main(int argc, char* argv[])
 	sliderAInner = { (screenRect.w - sliderWidth) / 2, sliderHeight, sliderWidth, sliderHeight };
 	sliderNInner = { (screenRect.w - sliderWidth) / 2, 3 * sliderHeight, sliderWidth, sliderHeight };
 
+	sliderAHeader = {(int)(screenMid - (screenRect.w * 0.07f)), 0, (int)(screenRect.w * 0.14f), sliderHeight};
+	sliderNHeader = { (int)(screenMid - (screenRect.w * 0.07f)), 2 * sliderHeight, (int)(screenRect.w * 0.14f), sliderHeight };
+
 	int threeHbyFive = 3.0f * screenRect.h / 5.0f;
 
 	float functionYScalingFactor = screenRect.h * 0.3f;
@@ -60,6 +65,8 @@ int main(int argc, char* argv[])
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
 	SDL_Texture* functionImage = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("Image.bmp"));
+	SDL_Texture* sliderAHeadingImage = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("SliderAHeading.bmp"));
+	SDL_Texture* sliderNHeadingImage = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("SliderNHeading.bmp"));
 
 	while (running) {
 		// TAKING INPUT FROM USER
@@ -109,6 +116,10 @@ int main(int argc, char* argv[])
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderDrawRect(renderer, &sliderA);
 		SDL_RenderDrawRect(renderer, &sliderN);
+
+		// drawing the slider headings
+		SDL_RenderCopy(renderer, sliderAHeadingImage, NULL, &sliderAHeader);
+		SDL_RenderCopy(renderer, sliderNHeadingImage, NULL, &sliderNHeader);
 		
 		// drawing the function
 		for (int i = 0.1f * screenRect.w; i <= 0.9f * screenRect.w; i++) {
