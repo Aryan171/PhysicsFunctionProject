@@ -49,8 +49,8 @@ int main(int argc, char* argv[])
 
 	int threeHbyFive = 3.0f * screenRect.h / 5.0f;
 
-	float functionYScalingFactor = screenRect.h * 0.3f;
-	float functionXScalingFactor = screenRect.w * 0.03f;
+	float functionYScalingFactor = screenRect.h * 2.0f;
+	float functionXScalingFactor = screenRect.w * 0.01f;
 
 	const SDL_Rect functionImageRect = { 0.4f * screenRect.w, 5 * sliderHeight, 0.2f * screenRect.w, 5 * sliderHeight };
 
@@ -147,7 +147,8 @@ bool IsPointInRect(int x, int y, const SDL_Rect& rect) {
 }
 
 float Function(float x, float a, int n) {
-	return sqrt(2.0f / a) * sin(n * M_PI * x / a);
+	float y = sqrt(2.0f / a) * sin(n * M_PI * x / a);
+	return -y * y;
 }
 
 void rainbowColor(float value, Uint8 & r, Uint8& g, Uint8& b) {
